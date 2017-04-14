@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body ng-controller="ProductController">
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="../Scripts/angular.min.js"></script>
+    <script src="../MyScripts/module.js"></script>
+
+    <script src="../MyScripts/ProductService.js"></script>
+    <script src="../MyScripts/ProductController.js"></script>
+<form>
+    <div>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <td>Categories</td>
+                <td>prices</td>
+                <td>Operators</td>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <select ng-model="selectedCategory" class="form-control" name="Categories" ng-options="option for option in Categories"></select>
+                    </td>
+                    <td>
+                        <select ng-model="selectedPrice" class="form-control" name="Prices" ng-options="item for item in Prices">Prices</select>
+                    </td>
+                    <td>
+                        <select ng-model="selectedOperator" class="form-control" name="Operators" ng-options="item.value for item in Operators">Operators</select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <input type="button" class="btn btn-success" ng-click="GetFilteredProducts()" value="GetFilteredProducts"/>
+
+        <input type="button" class="btn btn-success" ng-click="ClearFilters()" value="Clear Filters"/>
+
+        <br/>
+        <br/>
+
+    </div>
+
+    <div style="overflow: visible; height: 200px;">
+      
+        
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <td>ProductName</td>
+                    <td>Price</td>
+                    <td>CategoryId</td>
+               
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="prod in Products ">
+                    <td>{{prod.ProductName}}</td>
+                    <td>{{prod.Price}}</td>
+                    <td>{{prod.CategoryId}}</td>
+                
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+</body>
+</html>

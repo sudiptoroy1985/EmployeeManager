@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body ng-controller="empcontroller">
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="../Scripts/angular.min.js"></script>
+    <script src="../MyScripts/module.js"></script>
+    <script src="../MyScripts/empservice.js"></script>
+    <script src="../MyScripts/empcontroller.js"></script>
+<table class="table table-bordered table-striped">
+    <tr>
+        <td>EmpNo</td>
+        <td>
+            <input type="text" class="form-control" ng-model="Employee.employeeId"/>
+        </td>
+    </tr>
+    <tr>
+        <td>EmpName</td>
+        <td>
+            <input type="text" class="form-control" ng-model="Employee.employeeName"/>
+        </td>
+    </tr>
+    <tr>
+        <td>Salary</td>
+        <td>
+            <input type="text" class="form-control" ng-model="Employee.Salary"/>
+        </td>
+    </tr>
+    <tr>
+        <td>DeptName</td>
+        <td>
+            <input type="text" class="form-control" ng-model="Employee.DepartmentName"/>
+        </td>
+    </tr>
+    <!--<tr>
+        <td>Designation</td>
+        <td>
+            <input type="text" class="form-control" ng-model="Employee.Designation"/>
+        </td>
+    </tr>-->
+    <tr>
+        <td><input type="button" value="New" class="btn btn-default" ng-click="clear()"/></td>
+        <td><input type="button" Value="Save" class="btn btn-success" ng-click="save()"/></td>
+       
+    </tr>
+    <tr>
+</table>
+
+<div style="overflow: visible; height: 200px;">
+    Enter Search text
+    <input type="text" class="form-control" ng-model="$parent.filter"/>
+    <!--<input type="radio" name="option" value="department" ng-change="FilterChanged()">-->
+    <!--<input type="radio" name="option" value="employee" ng-change="FilterChanged(query.EmpName)"> employee<br>-->
+   
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <td><input type="checkbox" ng-model="IsAllSelected" /></td>
+                    <td>EmpNo</td>
+                    <td>EmpName</td>
+                    <td>Salary</td>
+                    <td>DeptName</td>
+                    <!--<td>Designation</td>-->
+                    <td>Tax</td>
+                    <td>Operation</td>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="Emp in Employees | filter:$parent.filter" ng-click="getSelectedRecord(Emp)">
+
+                <td>
+                    <input type="checkbox" ng-checked="IsAllSelected">
+                </td>
+
+                <td>
+                    <div>{{Emp.employeeId}}</div>
+                </td>
+
+                <td>
+                    <div ng-hide="UpdatingEmployee[Emp.employeeId]">{{Emp.employeeName}}</div>
+                    <div ng-show="UpdatingEmployee[Emp.employeeId]"><input type="text" ng-model="Emp.employeeName"></div>
+                </td>
+
+                <td>
+                    <div ng-hide="UpdatingEmployee[Emp.employeeId]">{{Emp.Salary}}</div>
+                    <div ng-show="UpdatingEmployee[Emp.employeeId]"><input type="text" ng-model="Emp.Salary"></div>
+                </td>
+
+                <td>
+                    <div ng-hide="UpdatingEmployee[Emp.employeeId]">{{Emp.DepartmentName}}</div>
+                    <div ng-show="UpdatingEmployee[Emp.employeeId]"><input type="text" ng-model="Emp.DepartmentName"></div>
+                </td>
+
+                <td>
+                    {{Emp.Salary * 0.2}}
+               </td>
+                <td>
+                    <input type="button" value="Delete" class="btn pull-left btn-danger" ng-click="Delete(Emp.employeeId)"/>&nbsp;
+                    <input ng-hide="UpdatingEmployee[Emp.employeeId]" type="button" value="Update" class="btn btn btn-success" ng-click="modify(Emp)"/>&nbsp;
+                    <input ng-show="UpdatingEmployee[Emp.employeeId]" type="button" value="Save Changes" class="btn btn btn-info" ng-click="SaveChanges(Emp)"/>
+                    <input ng-show="UpdatingEmployee[Emp.employeeId]" type="button" value="Canel" class="btn btn btn-default" ng-click="UpdatingEmployee[Emp.employeeId] = false" />
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+</div>
+
+   
+
+
+
+
+</body>
+</html>
